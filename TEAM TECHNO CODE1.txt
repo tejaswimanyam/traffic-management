@@ -1,0 +1,67 @@
+import random
+import time
+
+class TrafficManagementSystem:
+    def __init__(self):
+        self.parking_slots = [False] * 5  # 5 parking slots (False = empty, True = taken)
+        self.traffic_density = 0
+
+    # 1. Signal violation detection
+    def detect_signal_violation(self, vehicle_number):
+        print(f"Vehicle {vehicle_number} did not follow the signal!")
+        self.send_alert(vehicle_number)
+
+    def send_alert(self, vehicle_number):
+        print(f"Alert sent to traffic system and owner of {vehicle_number}.\n")
+
+    # 2. Auto signal control
+    def auto_signal_control(self):
+        if self.traffic_density > 50:
+            print("Traffic is heavy. Signals adjusted automatically.\n")
+        else:
+            print("Normal traffic. Signals working as usual.\n")
+
+    # 3. One-way road management
+    def manage_one_way(self, road_width):
+        if road_width < 5:
+            print("Road is narrow. One-way traffic enabled.\n")
+        else:
+            print("Two-way traffic allowed.\n")
+
+    # 4. No-parking area detection
+    def detect_no_parking(self, vehicle_number, parked_time):
+        if parked_time > 10:
+            print(f"Vehicle {vehicle_number} parked too long in No-Parking zone.")
+            print("Message sent to traffic management for action.\n")
+
+    # 5. Parking slot monitoring
+    def check_parking(self):
+        for i, slot in enumerate(self.parking_slots):
+            status = "Taken" if slot else "Empty"
+            print(f"Parking Slot {i+1}: {status}")
+        print()
+
+    def update_parking(self, slot_number, status):
+        self.parking_slots[slot_number-1] = status
+        print(f"Parking slot {slot_number} updated to {'Taken' if status else 'Empty'}.\n")
+
+    # 6. Route information system
+    def route_info(self, traffic_jam):
+        if traffic_jam:
+            print("Traffic jam ahead. Use alternate route (shown on digital board).\n")
+        else:
+            print("Route is clear. Proceed normally.\n")
+
+
+# ---------- Simulation ----------
+tms = TrafficManagementSystem()
+
+# Example runs
+tms.detect_signal_violation("AP01AB1234")
+tms.traffic_density = random.randint(10, 100)
+tms.auto_signal_control()
+tms.manage_one_way(road_width=3)
+tms.detect_no_parking("TS09XY4567", parked_time=15)
+tms.update_parking(2, True)
+tms.check_parking()
+tms.route_info(traffic_jam=True)
